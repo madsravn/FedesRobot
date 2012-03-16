@@ -1,0 +1,3 @@
+A JAVA tool to click the screen and write unique comments in order to bot a certain website.
+
+This tool utilizes awt.robot and swing.
