@@ -24,7 +24,7 @@ public class FileReader {
 
             while ((strLine = br.readLine()) != null)   {
 
-                ICANREAD.add(strLine);
+                ICANREAD.add(strLine.trim());
 
             }
 

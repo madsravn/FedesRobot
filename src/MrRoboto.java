@@ -2,16 +2,12 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
-/**
- * Created by IntelliJ IDEA.
- * User: mads
- * Date: 3/14/12
- * Time: 9:20 PM
- * To change this template use File | Settings | File Templates.
- */
 public class MrRoboto extends Robot {
+    
+
     public MrRoboto() throws AWTException
     {
         super();
@@ -42,9 +38,9 @@ public class MrRoboto extends Robot {
     public void moveAndClick(int x, int y) {
         mouseMove(x,y);
         delay(50);
-        mousePress(1);
+        mousePress(InputEvent.BUTTON1_MASK);
         delay(50);
-        mouseRelease(1);
+        mouseRelease(InputEvent.BUTTON1_MASK);
 
     }
 
