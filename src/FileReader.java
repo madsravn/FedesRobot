@@ -29,7 +29,9 @@ public class FileReader {
 
             }
 
+            br.close();
             in.close();
+            fstream.close();
         }catch (Exception e){
 
             System.err.println("Error: " + e.getMessage());

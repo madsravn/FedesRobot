@@ -80,12 +80,17 @@ public class MrRoboto extends Robot implements Runnable{
         boolean running = true;
         while(running) {
             try {
-                moveAndClick((int)first.getX(),(int)first.getY());
+
+                moveAndClick(randomBetween((int)first.getX(),(int)second.getX()), randomBetween((int)first.getY(),(int)second.getY()));
                 thisThread.sleep(5000);
-                moveAndClick(randomBetween((int)second.getX(),(int)third.getX()), randomBetween((int)second.getY(),(int)third.getY()));
+                moveAndClick((int)third.getX(),(int)third.getY());
+                thisThread.sleep(5000);
+                
+                type(excuses.get(iForExcuses) + ". Best regards from the " + color + " " + animal);
                 thisThread.sleep(5000);
                 moveAndClick((int)fourth.getX(), (int)fourth.getY());
-                type(excuses.get(iForExcuses) + ". Best regards from the " + color + " " + animal);
+                thisThread.sleep(5000);
+                moveAndClick((int)fifth.getX(), (int)fifth.getY());
                 iForExcuses++;
                 thisThread.sleep(10000);
                 if(iForExcuses == (excuses.size()-1)) {
