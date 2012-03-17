@@ -4,13 +4,41 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
 
-public class MrRoboto extends Robot {
-    
+public class MrRoboto extends Robot implements Runnable{
+
+    private Point first, second, third, fourth, fifth;
+    private Random randomGenerator;
+    private FileReader fileReader;
+    ArrayList<String> excuses, animals, colors;
+
+
+    public void setPoints(Point first, Point second, Point third, Point fourth, Point fifth) {
+        this.first = first;
+        this.second = second;
+        this.third = third;
+        this.fourth = fourth;
+        this.fifth = fifth;
+    }
+    private String animal;
+    private String color;
+
 
     public MrRoboto() throws AWTException
     {
         super();
+        Date date = new Date();
+        randomGenerator = new Random(date.getTime());
+        fileReader = new FileReader();
+        excuses = fileReader.readFile(new File("excuses"));
+        animals = fileReader.readFile(new File("animals"));
+        colors = fileReader.readFile(new File("colors"));
+
+
     }
 
     public void pasteClipboard()
@@ -41,6 +69,46 @@ public class MrRoboto extends Robot {
         mousePress(InputEvent.BUTTON1_MASK);
         delay(50);
         mouseRelease(InputEvent.BUTTON1_MASK);
+
+    }
+
+    public void run() {
+        Thread thisThread = Thread.currentThread();
+        color = colors.get(randomBetween(1,colors.size()-2));
+        animal = animals.get(randomBetween(1,animals.size()-2));
+        int iForExcuses = 0;
+        boolean running = true;
+        while(running) {
+            try {
+                moveAndClick((int)first.getX(),(int)first.getY());
+                thisThread.sleep(5000);
+                moveAndClick(randomBetween((int)second.getX(),(int)third.getX()), randomBetween((int)second.getY(),(int)third.getY()));
+                thisThread.sleep(5000);
+                moveAndClick((int)fourth.getX(), (int)fourth.getY());
+                type(excuses.get(iForExcuses) + ". Best regards from the " + color + " " + animal);
+                iForExcuses++;
+                thisThread.sleep(10000);
+                if(iForExcuses == (excuses.size()-1)) {
+                    iForExcuses = 0;
+                    String tempColor = color;
+                    String tempAnimal = animal;
+                    while(tempColor.equals(color)) {
+                        color = colors.get(randomBetween(1,colors.size()-2));
+                    }
+                    while(tempAnimal.equals(animal)) {
+                        animal = animals.get(randomBetween(1,animals.size()-2));
+                    }
+                }
+            } catch (InterruptedException e) {
+                running = false;
+            }
+
+        }
+    }
+
+    // Random number between x and y
+    private int randomBetween(int x, int y) {
+        return x + randomGenerator.nextInt(Math.abs(y-x));
 
     }
 

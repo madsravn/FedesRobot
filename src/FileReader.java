@@ -24,7 +24,7 @@ public class FileReader {
 
             while ((strLine = br.readLine()) != null)   {
 
-                ICANREAD.add(strLine.trim());
+                ICANREAD.add(strLine.replaceAll("[^a-zA-Z0-9]", ""));
 
             }
 
